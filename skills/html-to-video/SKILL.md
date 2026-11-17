@@ -7,6 +7,8 @@ license: Apache-2.0
 
 # html-to-video: start here
 
+When the vawe tools (`vawe_status` and the rest) are available, use them and skip the stage recipes below: each tool reply gives the next step.
+
 When you talk to the person, use plain words: describe what the viewer sees, not the harness terms (map: harness/lib/plain-words.mjs).
 vawe turns one HTML page into one mp4. You write the page in HTML, CSS, Web Animations, SVG, canvas or three.js. The renderer seeks the page to each frame time, screenshots it in headless Chrome, mixes the page's `<audio>` tags offline and encodes the video with ffmpeg. The same page gives the same frames in any order. There is no hosted API and no account.
 
@@ -17,6 +19,13 @@ git clone https://github.com/vawe-hq/vawe.git
 cd vawe
 npm install
 bin/vawe new <name> --request "<the ask>"   # also checks Node, ffmpeg and Chrome and prints the install line for each missing tool
+```
+
+In Claude Code, the `vawe-agent` plugin adds a `vawe` agent that can only use the vawe tools (no shell, no file writer) and a hook that denies hand-made writes to `films/` and raw `ffmpeg` or Chrome calls. Install it, then run `/vawe <the ask>`. Only the person approves a film.
+
+```bash
+claude plugin marketplace add vawe-hq/vawe
+claude plugin install vawe-agent@vawe-skills
 ```
 
 ## Make a video
